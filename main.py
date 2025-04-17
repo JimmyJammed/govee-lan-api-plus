@@ -350,6 +350,7 @@ def refresh_device_ips():
     lan_ip_map = {d["device"]: d["ip"] for d in lan_devices if d.get("device") and d.get("ip")}
     if not lan_ip_map:
         print("❌ No valid IPs found.")
+        print("Note: Make sure your Govee devices are powered on and connected to the same network but NOT the MITM Wi-Fi you setup on your machine.")
         return
 
     print(f"🔍 Updating device_factory.py with IPs for {len(lan_ip_map)} devices...")

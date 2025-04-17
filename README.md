@@ -243,6 +243,12 @@ Or scan the QR code below with the Venmo app:
 
 ## 💬 Need Help?
 
-Open an issue or start a discussion in the [GitHub Issues](https://github.com/yourname/govee-lan-api-plus/issues) tab. Contributions welcome!
+Open an issue or start a discussion in the [GitHub Issues](https://github.com/JimmyJammed/govee-lan-api-plus/issues) tab. Contributions welcome!
 
 ---
+
+## 💬 Join the Discussion!
+
+Have questions, ideas, or want to show off your setup? Join the conversation on GitHub Discussions!
+
+👉 [Start a Discussion](https://github.com/JimmyJammed/govee-lan-api-plus/discussions)
