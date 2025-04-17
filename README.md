@@ -12,11 +12,6 @@ This project was born out of frustration with the limitations of Govee’s offic
 
 As someone who creates **Light & Sound shows** for Halloween and Christmas, keeping the lights synchronized with music and audio dialogue was nearly impossible using the Cloud API due to unpredictable **internet latency and request timing issues**.
 
-### 🕺 Watch My Govee-Powered Light Show
-
-Check out one of the synced shows this tool helped power:
-👉 [Stranger Things Halloween 2024 on YouTube 🎥](https://youtu.be/egxioHVotYc?si=oDVQX2V4J-dMQwuN&t=774)
-
 This tool allows you to:
 
 - Capture the exact MQTT payloads the Govee app sends when triggering DIY Scenes
@@ -25,6 +20,11 @@ This tool allows you to:
 - Generate Python code automatically to scale your control across devices
 
 Whether you're running a holiday show, building custom automations, or just want faster device control, this framework gives you **complete LAN-side access** to your Govee ecosystem.
+
+### 🕺 Watch My Govee-Powered Light Show
+
+Check out one of the synced Light & Sound shows this tool helped power with LAN DIY Scene control:
+👉 [Stranger Things Halloween 2024 on YouTube 🎥](https://youtu.be/egxioHVotYc?si=oDVQX2V4J-dMQwuN&t=774)
 
 ---
 
@@ -142,7 +142,7 @@ Provided here are the basic steps, but if you have any problems just use Google,
    cd govee-lan-api-plus
    ```
 
-2. Create the .env file from the sample:
+2. Generate the .env file from the sample one:
    ```bash
    cp .env.example .env
    ```
@@ -167,11 +167,11 @@ Provided here are the basic steps, but if you have any problems just use Google,
 
 ### 💡 Sending MQTT DIY Scenes Programmatically
 
-Once you have used the wizard and generated your device and scene mappings, you can then send commands using the wizard directly OR manually send DIY scenes via LAN from your own Python scripts like so:
+Once you have used ran the wizard and generated your device and scene mappings, you can then send LAN DIY Scene commands using the wizard OR programmatically from your own Python scripts like so:
 
 ```python
 from factories.device_factory import * # Imports all the generated Device variables found in device_factory.py
-from factories.device_mqtt_diy_scene_factory import # Imports all the generated MQTT DIY Scene variables found in device_mqtt_diy_scene_factory.py
+from factories.device_mqtt_diy_scene_factory import * # Imports all the generated MQTT DIY Scene variables found in device_mqtt_diy_scene_factory.py
 from api.lan.set_device_mqtt_diy_scene import set_device_mqtt_diy_scene # Imports the function used for sending MQTT commands via LAN.
 
 # Send the DIY Scene to the device over LAN
@@ -179,11 +179,10 @@ set_device_mqtt_diy_scene(your_govee_device_variable, your_mqtt_diy_scene_variab
 ```
 
 This allows you to integrate Govee DIY Scene control into your own:
-- Automations
+- Automations *(Home Assistant, Raspberry Pi, Arduino, cron jobs, etc)*
 - Light & Sound shows
 - Scheduled effects
 - Interactive control systems
-- Home Assistant extensions
 
 You can access any generated device and scene using the variables listed in `factories/device_factory.py` and `factories/device_mqtt_diy_scene_factory.py`.
 
