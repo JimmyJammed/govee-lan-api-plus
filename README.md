@@ -112,6 +112,7 @@ Provided here are the basic steps, but if you have any problems just use Google,
    - Set your Govee device’s Wi-Fi to the same network
    - Turn on **LAN Control**
 7. Turn off Bluetooth on the phone to force Wi-Fi-only control (Govee App will bypass Wi-Fi commands if it can find the device within range on Bluetooth)
+8. Once you are done capturing the MQTT messages, you can return your phone and govee device to normal Wi-Fi networks and using the wizard or programmatically sending the MQTT messages will work (keep reading below for those steps).
 
 ---
 
@@ -165,9 +166,45 @@ Provided here are the basic steps, but if you have any problems just use Google,
 
 ---
 
-### 💡 Sending MQTT DIY Scenes Programmatically
+## 🧙🏻‍ Using the Wizard
 
-Once you have used ran the wizard and generated your device and scene mappings, you can then send LAN DIY Scene commands using the wizard OR programmatically from your own Python scripts like so:
+Now that you have setup your environment and run the wizard you can do the following:
+
+☁️  Sync Devices from Govee Cloud API
+-- This will fetch all your account's Govee devices from the Govee Cloud API and generate the `factories/device_factory.py` file with variables for each of your devices as well as their DIY Scenes:
+```
+smart_ground_lights = GoveeDevice("1A:....:9Z", "Smart Ground Lights", "H7050") # Device ID, Device Name, Device SKU
+smart_ground_lights.scenes = SimpleNamespace(
+    my_diy_scene_123456=GoveeDIYScene("123456", "My DIY Scene"), # DIY Scene Name + ID
+    my_other_diy_scene_123456=GoveeDIYScene("123456", "My Other DIY Scene"),
+    ...
+)
+```
+Now you will be able to easily reference these programmatically as `smart_ground_lights` and `my_diy_scene_123456`.
+
+🛜 Refresh Device IP Addresses
+-- This will scan your network for connected Govee devices and then update their related variables in `factories/device_factory.py` to use the IP Address which is required for sending the MQQT messages over LAN to control your device's DIY Scenes. 
+-- NOTE: The device and machine you are running the script from both need to be on your normal Wi-Fi network (not the MITM one) or the IP Address will not be detected.
+-- NOTE: It is also recommended that you set all your Govee devices to use dedicated IP Addresses in your Router's configuration to avoid them changing later and requiring you to run this script.
+
+🎬 Capture DIY Scene MQTT Payloads
+-- This is a semi-automated process that will guide you through capturing your devices specific MQTT messages for triggering DIY Scenes over LAN. Unfortunately, as much as I tried to automate this entire process, this step was very difficult to automate. However, this will walk you through the process efficiently:
+1. Select the device
+2. Select the DIY Scene you want to capture for that device
+3. Attaches Frida hooks to intercept the MQTT message
+4. Prompts you to trigger the scene change in the Govee App
+5. Once a MQTT is intercepted, generates the `GoveeMqttDiyDevice` variable for you and stores it as a variable in `factories/device_mqtt_diy_scene_factory.py` as well as adds that variable to the device's array of scenes, `your_device.mqtt_diy_scenes`, in `factories/device_factory.py`.
+
+🏭 Refresh MQTT DIY Scene Factories
+-- If you need to re-sync your devices from the Govee Cloud, this script will re-link the previously captured MQTT messages (`factories/device_mqtt_diy_scene_factory.py`) to the `your_device.mqtt_diy_scenes`, in `factories/device_factory.py`.
+
+📡 Send LAN MQTT DIY Scene Command
+-- And finally, you can start sending your captured MQTT DIY Scenes to the device. You can send it using the wizard:
+1. Select the device
+2. Select the MQTT DIY Scene you want to send
+3. Send it! 📡
+
+Or send it programmtically:
 
 ```python
 from factories.device_factory import * # Imports all the generated Device variables found in device_factory.py
@@ -183,8 +220,6 @@ This allows you to integrate Govee DIY Scene control into your own:
 - Light & Sound shows
 - Scheduled effects
 - Interactive control systems
-
-You can access any generated device and scene using the variables listed in `factories/device_factory.py` and `factories/device_mqtt_diy_scene_factory.py`.
 
 ---
 
