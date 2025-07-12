@@ -14,21 +14,31 @@
 # License: MIT
 # ==============================================================================
 
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 import uuid
 import requests
 
 from typing import List, Dict
 
+from dotenv import load_dotenv
+load_dotenv()
+
 # Govee Cloud API endpoint for querying device DIY scenes
 API_ENDPOINT = "https://openapi.api.govee.com/router/api/v1/device/diy-scenes"
+API_KEY = os.getenv("GOVEE_API_KEY")
+
+TEST_DEVICE_ID = ""  # Set an example device ID here
+TEST_DEVICE_SKU = ""  # Set an example device SKU here
 
 def get_device_diy_scenes(device_id: str, sku: str, api_key: str) -> List[Dict]:
     """
     Fetch the list of DIY scene options for a given Govee device from the Cloud API.
 
     Args:
-        device_id (str): The Govee device ID (e.g. "22:2C:F0:9F:A3:EA:39:8B")
-        sku (str): The device SKU (e.g. "H6001")
+        device_id (str): The Govee device ID (e.g. "11:AA:22:BB:33:CC:44:DD")
+        sku (str): The device SKU (e.g. "H70C2")
         api_key (str): Govee Cloud API key
 
     Returns:
@@ -72,3 +82,18 @@ def get_device_diy_scenes(device_id: str, sku: str, api_key: str) -> List[Dict]:
         print(f"❌ An error occurred: {err}")
 
     return []
+
+if __name__ == "__main__":
+    if not API_KEY:
+        print("❌ Missing GOVEE_API_KEY in environment.")
+        exit(1)
+
+    scenes = get_device_diy_scenes(
+        device_id=TEST_DEVICE_ID,
+        sku=TEST_DEVICE_SKU,
+        api_key=API_KEY
+    )
+
+    print("🎨 Available DIY Scenes:")
+    for scene in scenes:
+        print(f"- {scene.get('name')} ({scene.get('value')})")

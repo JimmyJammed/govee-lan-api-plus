@@ -184,7 +184,7 @@ Now you will be able to easily reference these programmatically as `smart_ground
 
 🛜 Refresh Device IP Addresses
 -- This will scan your network for connected Govee devices and then update their related variables in `factories/device_factory.py` to use the IP Address which is required for sending the MQQT messages over LAN to control your device's DIY Scenes. 
--- NOTE: The device and machine you are running the script from both need to be on your normal Wi-Fi network (not the MITM one) or the IP Address will not be detected.
+-- NOTE: The Govee device (i.e. Lights) and the machine (i.e. MacBook) you are running the script from both need to be on your normal Wi-Fi network (NOT the MITM one) or the IP Address will not be detected.
 -- NOTE: It is also recommended that you set all your Govee devices to use dedicated IP Addresses in your Router's configuration to avoid them changing later and requiring you to run this script.
 
 🎬 Capture DIY Scene MQTT Payloads
