@@ -173,3 +173,8 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 frida_govee_mqtt_output.log
+.venv/
+dist/
+build/
+*.egg-info/
+*.jsonl
