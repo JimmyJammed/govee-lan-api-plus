@@ -1,0 +1,5 @@
+{
+  "version": 1,
+  "devices": [{"id": "demo-lantern", "sku": "SIMULATED", "ip": "127.0.0.1", "name": "Lantern", "port": 4003}],
+  "scenes": [{"name": "warm", "payload": {"msg": {"cmd": "colorwc", "data": {"color": {"r": 255, "g": 180, "b": 80}, "colorTemInKelvin": 0}}}, "experimental": false, "verified": {}}]
+}

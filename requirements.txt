@@ -1,4 +1,0 @@
-frida
-python-dotenv
-requests
-watchdog

@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "govee-lan-api-plus"
+version = "1.0.0"
+description = "Typed Govee LAN control, discovery, and experimental scene profiles"
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+authors = [{name = "Jimmy Hickman"}]
+dependencies = []
+
+[project.optional-dependencies]
+capture = ["frida>=17,<18"]
+dev = ["pytest>=8", "pytest-asyncio>=1", "build>=1"]
+
+[project.scripts]
+govee = "govee_lan_api_plus.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+pythonpath = ["src"]
